@@ -76,7 +76,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/flockNameTextBox"
         android:layout_alignBottom="@+id/textView10"
         android:layout_toRightOf="@+id/textView6"
         android:layout_alignRight="@+id/addCreationSheepButton"

@@ -61,7 +61,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner3"
+        android:id="@+id/MaxDistanceSpinner"
         android:layout_alignTop="@+id/textView14"
         android:layout_toRightOf="@+id/textView12"
         android:layout_toEndOf="@+id/textView12" />
@@ -69,17 +69,17 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner4"
+        android:id="@+id/MaxDurationSpinner"
         android:layout_alignTop="@+id/textView15"
-        android:layout_alignLeft="@+id/spinner3"
-        android:layout_alignStart="@+id/spinner3" />
+        android:layout_alignLeft="@+id/MaxDistanceSpinner"
+        android:layout_alignStart="@+id/MaxDistanceSpinner" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+ Add Sheep"
         android:id="@+id/addSheepManagementButton"
-        android:layout_below="@+id/spinner4"
+        android:layout_below="@+id/MaxDurationSpinner"
         android:layout_centerHorizontal="true" />
 
     <Button

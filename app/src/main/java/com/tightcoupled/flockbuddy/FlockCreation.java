@@ -13,17 +13,22 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.util.Log;
 
+import java.net.*;
+import java.io.*;
+
 public class FlockCreation extends AppCompatActivity {
 
     PopupWindow popUp;
     LinearLayout layout;
     TextView phoneNumber, name;
-    EditText thePhoneNumber, theName;
+    EditText thePhoneNumber, theName, flockNameText;
     LayoutParams params;
     LinearLayout mainLayout;
     Button sheepAddition, sheepView, flockCreate, confirmSheep;
     boolean click=true;
     View rootView;
+
+    boolean flockCreated;
 
     Spinner distanceSpinner, durationSpinner;
 
@@ -31,6 +36,8 @@ public class FlockCreation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flock_creation);
+
+        flockCreated = false;
 
         //confirmSheep = new Button(this, null, ;
 
@@ -51,7 +58,7 @@ public class FlockCreation extends AppCompatActivity {
             public void onClick(View v) {
 
                 //NEED POP UP FOR ADDING SHEEP!
-
+/*
                 popUp = new PopupWindow(v);
 
                 params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -78,6 +85,13 @@ public class FlockCreation extends AppCompatActivity {
                     popUp.dismiss();
                     click = true;
                 }*/
+
+
+                //Starting a new Intent
+                Intent nextScreen = new Intent(getApplicationContext(), SheepAdditionScreen.class);
+
+                startActivity(nextScreen);
+
             }
         });
 
@@ -93,10 +107,13 @@ public class FlockCreation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Starting a new Intent
-                Intent nextScreen = new Intent(getApplicationContext(), FlockSheepList.class);
+                if(flockCreated)
+                {
+                    //Starting a new Intent
+                    Intent nextScreen = new Intent(getApplicationContext(), FlockSheepList.class);
 
-                startActivity(nextScreen);
+                    startActivity(nextScreen);
+                }
 
             }
         });
@@ -106,29 +123,33 @@ public class FlockCreation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //NEED A POPUP HERE SAYING THAT FLOCK HAS BEEN CREATED!
-                PopupMenu flockCreateConfirm = new PopupMenu(getApplicationContext(), v);
+                if(!flockCreated)
+                {
+                    //Need to check if all input parameters have been entered correctly here!
+
+                    flockNameText = (EditText) findViewById(R.id.flockNameTextBox);
+
+                    if(!(flockNameText.getText().equals("")))
+                    {
+                        flockCreated = true;
+                        //NEED A POPUP HERE SAYING THAT FLOCK HAS BEEN CREATED!
+                        PopupMenu flockCreateConfirm = new PopupMenu(getApplicationContext(), v);
+                        flockCreateConfirm.inflate(R.menu.flock_create_confirm);
+
+                        flockCreateConfirm.show();
+                        //popUp.showAtLocation(mainLayout, Gravity.BOTTOM, 10, 10);
+                        //popUp.update(50, 50, 300, 80);
+
+                    }
 
 
-                //Need to check if all input parameters have been entered correctly here!
+                }
 
-                flockCreateConfirm.inflate(R.menu.flock_create_confirm);
 
-                flockCreateConfirm.show();
-                //popUp.showAtLocation(mainLayout, Gravity.BOTTOM, 10, 10);
-                //popUp.update(50, 50, 300, 80);
-
-                //Starting a new Intent
-                //Intent nextScreen = new Intent(getApplicationContext(),  .class);
-
-                //startActivity(nextScreen);
             }
         });
 
-
         distanceSpinner = (Spinner) findViewById(R.id.distanceSetter);
-
-
 
         //Spinner dynamicSpinner = (Spinner) findViewById(R.id.dynamic_spinner);
 
@@ -195,5 +216,50 @@ public class FlockCreation extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private static String excutePost(String targetURL, String urlParameters) {
+        HttpURLConnection connection = null;
+        try {
+            //Create connection
+            URL url = new URL(targetURL);
+            connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type",
+                    "application/x-www-form-urlencoded");
+
+            connection.setRequestProperty("Content-Length",
+                    Integer.toString(urlParameters.getBytes().length));
+            connection.setRequestProperty("Content-Language", "en-US");
+
+            connection.setUseCaches(false);
+            connection.setDoOutput(true);
+
+            //Send request
+            DataOutputStream wr = new DataOutputStream (
+                    connection.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.close();
+
+            //Get Response
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            StringBuilder response = new StringBuilder(); // or StringBuffer if not Java 5+
+            String line;
+            while((line = rd.readLine()) != null) {
+                response.append(line);
+                response.append('\r');
+            }
+            rd.close();
+            return response.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if(connection != null) {
+                connection.disconnect();
+            }
+        }
     }
 }

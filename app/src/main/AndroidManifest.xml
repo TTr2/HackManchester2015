@@ -40,6 +40,10 @@
             android:name=".FlockSheepList"
             android:label="@string/title_activity_flock_sheep_list" >
         </activity>
+        <activity
+            android:name=".SheepAdditionScreen"
+            android:label="@string/title_activity_sheep_addition_screen" >
+        </activity>
     </application>
 
 </manifest>

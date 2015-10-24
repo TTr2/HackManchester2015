@@ -9,4 +9,5 @@
     <string name="title_activity_flock_management">FlockManagement</string>
     <string name="title_activity_flock_list">flockList</string>
     <string name="title_activity_flock_sheep_list">FlockSheepList</string>
+    <string name="title_activity_sheep_addition_screen">SheepAdditionScreen</string>
 </resources>
