@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FlockBuddy</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sheep_tracking_enabler">SheepTrackingEnabler</string>
+    <string name="title_activity_shephard_flock_manager">ShephardFlockManager</string>
+    <string name="title_activity_flock_creation">FlockCreation</string>
+    <string name="title_activity_flock_management">FlockManagement</string>
+    <string name="title_activity_flock_list">flockList</string>
+    <string name="title_activity_flock_sheep_list">FlockSheepList</string>
+</resources>

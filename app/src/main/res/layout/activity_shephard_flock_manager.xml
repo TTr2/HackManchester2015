@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.tightcoupled.flockbuddy.ShephardFlockManager">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Flock"
+        android:id="@+id/createFlockButton"
+        android:layout_marginTop="134dp"
+        android:layout_alignLeft="@+id/manageFlockButton"
+        android:layout_alignStart="@+id/manageFlockButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage Flock"
+        android:id="@+id/manageFlockButton"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/createFlockButton"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
