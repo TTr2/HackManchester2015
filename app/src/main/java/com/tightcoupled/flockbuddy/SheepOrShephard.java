@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.content.Context;
+import android.location.*;
+import android.telephony.*;
+
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,13 +22,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+//import java.security.Provider;
 
 import static com.tightcoupled.flockbuddy.R.layout.activity_sheep_or_shephard;
 
-public class SheepOrShephard extends AppCompatActivity {
+public class SheepOrShephard extends AppCompatActivity implements LocationListener{
 
     Button theSheepButton, theShephardButton;
    // View rootView;
+    LocationManager locationManager;
+    Location location;
+    private String provider;
+
+    private int latitude, longtitude;
+
 
 
     @Override
@@ -65,6 +75,18 @@ public class SheepOrShephard extends AppCompatActivity {
                 startActivity(nextScreen);
             }
         });
+
+
+
+
+        // Get the location manager
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Define the criteria how to select the locatioin provider -> use
+        // default
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+        location = locationManager.getLastKnownLocation(provider);
+
     }
 
     @Override
@@ -132,4 +154,50 @@ public class SheepOrShephard extends AppCompatActivity {
             }
         }
     }
+
+
+    //GPS Location overriden classes
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+    private double[] getLocationCoordinates()
+    {
+        double[] coordinates = new double[2];
+
+        coordinates[0] = location.getLatitude();
+        coordinates[1] = location.getLongitude();
+        return coordinates;
+    }
+
+    private int getPhoneNumber()
+    {
+        TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String mPhoneNumber = tMgr.getLine1Number();
+        return Integer.parseInt(mPhoneNumber);
+    }
+
+
+
+
+
+
 }
