@@ -1,6 +1,7 @@
 package com.tightcoupled.flockbuddy;
 
 import android.app.*;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 //import java.security.Provider;
 
 import static com.tightcoupled.flockbuddy.R.layout.activity_sheep_or_shephard;
@@ -35,7 +37,7 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
     private String provider;
 
     private int latitude, longtitude;
-
+    private CountDownTimer countDownTimer;
 
 
     @Override
@@ -81,11 +83,27 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
 
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Define the criteria how to select the locatioin provider -> use
+        // Define the criteria how to select the location provider -> use
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         location = locationManager.getLastKnownLocation(provider);
+
+
+        while(true)
+        {
+            countDownTimer = new CountDownTimer(60000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    sendInfo();
+                }
+            };
+        }
 
     }
 
@@ -196,8 +214,14 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
     }
 
 
+    private void sendInfo()
+    {
+        double[] coordinates = getLocationCoordinates();
 
+        int phoneNumber = getPhoneNumber();
 
+        //Send HTTP Request here...
 
+    }
 
 }
