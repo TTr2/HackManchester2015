@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ToggleButton;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -14,10 +16,42 @@ import java.net.URL;
 
 public class SheepTrackingEnabler extends AppCompatActivity {
 
+    String response;
+
+    boolean isEnabled;
+
+    ToggleButton enabler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheep_tracking_enabler);
+
+
+        enabler = (ToggleButton) findViewById(R.id.trackingEnabler);
+        enabler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!enabler.isEnabled())
+                {
+                    isEnabled = false;
+
+                    //HTTPRequest to stop text messaging
+
+                    response = excutePost("http://46.101.60.51/", "?phoneNumber="+SheepOrShephard.getPhoneNumber()+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=false");
+
+                }
+
+                else
+                {
+                    isEnabled = true;
+
+                    //HTTPRequest to start text messaging
+                    response = excutePost("http://46.101.60.51/", "?phoneNumber="+SheepOrShephard.getPhoneNumber()+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=true");
+
+                }
+            }
+        });
     }
 
     @Override

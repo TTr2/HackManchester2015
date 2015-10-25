@@ -12,11 +12,21 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.util.Log;
+import java.util.ArrayList;
 
 import java.net.*;
 import java.io.*;
 
 public class FlockCreation extends AppCompatActivity {
+
+
+    //Flock Information
+
+
+    public static ArrayList flocks;
+    public static ArrayList<FlockObject> flockObject;
+
+
 
     PopupWindow popUp;
     LinearLayout layout;
@@ -37,6 +47,8 @@ public class FlockCreation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flock_creation);
 
+        flocks = new ArrayList();
+        flockObject = new ArrayList<FlockObject>();
         flockCreated = false;
 
         //confirmSheep = new Button(this, null, ;
@@ -109,6 +121,9 @@ public class FlockCreation extends AppCompatActivity {
 
                 if(flockCreated)
                 {
+
+                    excutePost("http://46.101.60.51/flockbuddy/newflock.php/", "?mobile="+SheepOrShephard.getPhoneNumber()+"&sheepName="+);
+
                     //Starting a new Intent
                     Intent nextScreen = new Intent(getApplicationContext(), FlockSheepList.class);
 
@@ -129,8 +144,15 @@ public class FlockCreation extends AppCompatActivity {
 
                     flockNameText = (EditText) findViewById(R.id.flockNameTextBox);
 
-                    if(!(flockNameText.getText().equals("")))
-                    {
+                    if(!(flockNameText.getText().toString().equals(""))) {
+
+                        FlockObject thisFlock = new FlockObject();
+                        thisFlock.setFlockName(flockNameText.getText().toString());
+                        thisFlock.setMaxDistance(Integer.parseInt(distanceSpinner.getSelectedItem().toString()));
+                        thisFlock.setMaxDuration(Integer.parseInt(durationSpinner.getSelectedItem().toString()));
+
+
+                        flocks.add(thisFlock);
                         flockCreated = true;
                         //NEED A POPUP HERE SAYING THAT FLOCK HAS BEEN CREATED!
                         PopupMenu flockCreateConfirm = new PopupMenu(getApplicationContext(), v);
@@ -141,7 +163,6 @@ public class FlockCreation extends AppCompatActivity {
                         //popUp.update(50, 50, 300, 80);
 
                     }
-
 
                 }
 
@@ -194,6 +215,8 @@ public class FlockCreation extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
+
+
     }
 
     @Override
@@ -261,5 +284,32 @@ public class FlockCreation extends AppCompatActivity {
                 connection.disconnect();
             }
         }
+    }
+
+
+    private String getPhoneUserName()
+    {
+        AccountManager manager = AccountManager.get(this);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
+
+        for (Account account : accounts) {
+            // TODO: Check possibleEmail against an email regex or treat
+            // account.name as an email address only for certain account.type
+            // values.
+
+
+            possibleEmails.add(account.name);
+        }
+
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+            String email = possibleEmails.get(0);
+            String[] parts = email.split("@");
+            if (parts.length > 0 && parts[0] != null)
+                return parts[0];
+            else
+                return null;
+        } else
+            return null;
     }
 }

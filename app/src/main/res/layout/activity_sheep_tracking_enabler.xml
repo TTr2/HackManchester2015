@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
-        android:id="@+id/toggleButton"
+        android:id="@+id/trackingEnabler"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -21,7 +21,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Enable Tracking?"
         android:id="@+id/textView4"
-        android:layout_above="@+id/toggleButton"
+        android:layout_above="@+id/trackingEnabler"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="57dp" />
 

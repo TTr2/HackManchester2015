@@ -25,21 +25,21 @@ import java.net.URL;
 
 import static com.tightcoupled.flockbuddy.R.layout.activity_sheep_or_shephard;
 
-public class SheepOrShephard extends AppCompatActivity implements LocationListener, Runnable{
+public class SheepOrShephard extends AppCompatActivity implements LocationListener{
 
     Button theSheepButton, theShephardButton;
    // View rootView;
     LocationManager locationManager;
-    Location location;
+    static Location location;
     private String provider;
 
     private int latitude, longtitude;
     private CountDownTimer countDownTimer;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(activity_sheep_or_shephard);
@@ -100,8 +100,8 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
 
         }
 
-        Thread timerThread =  new Thread(new SheepOrShephard());
-        timerThread.start();
+        runTimer();
+
     }
 
     @Override
@@ -194,7 +194,7 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
     }
 
 
-    private double[] getLocationCoordinates()
+    public static double[] getLocationCoordinates()
     {
         double[] coordinates = new double[2];
 
@@ -203,13 +203,12 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
         return coordinates;
     }
 
-    private int getPhoneNumber()
+    public static int getPhoneNumber()
     {
         TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String mPhoneNumber = tMgr.getLine1Number();
         return Integer.parseInt(mPhoneNumber);
     }
-
 
     private void sendInfo()
     {
@@ -219,26 +218,24 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
 
         //Send HTTP Request here...
 
-
     }
 
-    @Override
-    public void run() {
-
-        while(true)
-        {
-            countDownTimer = new CountDownTimer(60000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
+    private void runTimer()
+    {
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(millisUntilFinished % 100 == 0)
+                {
+                    System.out.println("Timer is working...");
                 }
-
-                @Override
-                public void onFinish() {
-                    sendInfo();
-                }
-            };
-        }
+            }
+            @Override
+            public void onFinish() {
+                sendInfo();
+                runTimer();
+            }
+        };
     }
 
     public class GifWebView extends WebView {
@@ -248,4 +245,6 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
             loadUrl(path);
         }
     }
+
+
 }
