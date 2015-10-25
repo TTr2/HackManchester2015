@@ -12,7 +12,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.util.Log;
+import android.accounts.AccountManager;
+import android.accounts.Account;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 import java.net.*;
 import java.io.*;
@@ -122,7 +127,7 @@ public class FlockCreation extends AppCompatActivity {
                 if(flockCreated)
                 {
 
-                    excutePost("http://46.101.60.51/flockbuddy/newflock.php/", "?mobile="+SheepOrShephard.getPhoneNumber()+"&sheepName="+);
+                    excutePost("http://46.101.60.51/flockbuddy/newflock.php/", "?mobile="+SheepOrShephard.getPhoneNumber()+"&sheepName="+getPhoneUserName()+"&flockName="+flockNameText.getText().toString()+"&start="+ Calendar.getInstance().get(Calendar.DATE)+"&end="+Calendar.getInstance().get(Calendar.DATE)+(Integer.parseInt(durationSpinner.getSelectedItem().toString())+60000)+"&maxDistance="+distanceSpinner.getSelectedItem());
 
                     //Starting a new Intent
                     Intent nextScreen = new Intent(getApplicationContext(), FlockSheepList.class);
@@ -298,6 +303,7 @@ public class FlockCreation extends AppCompatActivity {
             // account.name as an email address only for certain account.type
             // values.
 
+            if(account.name.compareTo("")==0)
 
             possibleEmails.add(account.name);
         }
@@ -306,10 +312,11 @@ public class FlockCreation extends AppCompatActivity {
             String email = possibleEmails.get(0);
             String[] parts = email.split("@");
             if (parts.length > 0 && parts[0] != null)
-                return parts[0];
+                //return parts[0];
+            return "Mudit";
             else
-                return null;
+                return "Mudit";
         } else
-            return null;
+            return "Mudit";
     }
 }
