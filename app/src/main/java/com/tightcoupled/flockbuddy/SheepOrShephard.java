@@ -15,12 +15,9 @@ import android.widget.Button;
 import android.content.Context;
 import android.location.*;
 import android.telephony.*;
+import android.webkit.WebView;
 
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -28,7 +25,7 @@ import java.net.URL;
 
 import static com.tightcoupled.flockbuddy.R.layout.activity_sheep_or_shephard;
 
-public class SheepOrShephard extends AppCompatActivity implements LocationListener{
+public class SheepOrShephard extends AppCompatActivity implements LocationListener, Runnable{
 
     Button theSheepButton, theShephardButton;
    // View rootView;
@@ -48,6 +45,15 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
         setContentView(activity_sheep_or_shephard);
 
         //View rootView= new View(new MockContext());
+
+        InputStream stream = null;
+        try {
+            stream = getAssets().open("shepherdsheepanim.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        GifWebView view = new GifWebView(this, "file:///android_asset    /piggy.gif");
+
 
         theSheepButton = (Button) findViewById(R.id.sheepButton);
         theShephardButton = (Button) findViewById(R.id.shephardButton);
@@ -78,33 +84,24 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
             }
         });
 
-
-
-
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Define the criteria how to select the location provider -> use
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
-        location = locationManager.getLastKnownLocation(provider);
 
-
-        while(true)
+        try
         {
-            countDownTimer = new CountDownTimer(60000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
+            location = locationManager.getLastKnownLocation(provider);
+        }
+        catch(Exception failed)
+        {
 
-                }
-
-                @Override
-                public void onFinish() {
-                    sendInfo();
-                }
-            };
         }
 
+        Thread timerThread =  new Thread(new SheepOrShephard());
+        timerThread.start();
     }
 
     @Override
@@ -222,6 +219,33 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
 
         //Send HTTP Request here...
 
+
     }
 
+    @Override
+    public void run() {
+
+        while(true)
+        {
+            countDownTimer = new CountDownTimer(60000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    sendInfo();
+                }
+            };
+        }
+    }
+
+    public class GifWebView extends WebView {
+
+        public GifWebView(Context context, String path) {
+            super(context);
+            loadUrl(path);
+        }
+    }
 }
