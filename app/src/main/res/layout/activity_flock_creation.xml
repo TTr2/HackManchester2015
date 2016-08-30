@@ -1,31 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.tightcoupled.flockbuddy.FlockCreation"
-    android:background="@drawable/sheepshepherd">
+    android:background="@drawable/sheep">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Max Duration"
-        android:id="@+id/textView8"
-        android:layout_alignBaseline="@+id/durationSetter"
-        android:layout_alignBottom="@+id/durationSetter"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/distanceSetter"
-        android:layout_above="@+id/textView8"
-        android:layout_alignLeft="@+id/durationSetter"
-        android:layout_alignStart="@+id/durationSetter" />
-
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,25 +20,200 @@
         android:id="@+id/textView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Flock Name"
+        android:textStyle="bold"
+        android:textColor="#FFFF00"
+        android:background="#999999"
+        android:id="@+id/flockNameText"
+
+    />
+
+    <!--
+            android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/textView6" -->
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/flockNameTextBox"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:textColor="#999999"
+        android:background="#FFFF00"
+        android:layout_toRightOf="@+id/flockNameText"
+    />
+<!--
+
+        android:layout_alignBottom="@+id/flockNameText"
+
+        android:layout_alignRight="@+id/addCreationSheepButton"
+        android:layout_alignEnd="@+id/addCreationSheepButton"
+-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Radius"
+        android:textStyle="bold"
+        android:textColor="#FFFF00"
+        android:background="#999999"
+        android:id="@+id/radiusText"
+        android:layout_below="@id/flockNameTextBox"
+        />
+<!--
+        android:layout_alignTop="@+id/radiusSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+-->
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radiusSpinner"
+        android:textStyle="bold"
+        android:textColor="#999999"
+        android:background="#FFFF00"
+        />
+<!--
+        android:layout_above="@+id/startDateText"
+        android:layout_alignLeft="@+id/startDatePicker"
+-->
+
+
+
+<!--         android:layout_alignStart="@+id/startDatePicker" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Start Date"
+        android:id="@+id/startDateText"
+        android:layout_below="@id/radiusSpinner"
+        />
+<!--
+        android:layout_alignBaseline="@+id/startDatePicker"
+        android:layout_alignBottom="@+id/startDatePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:id="@+id/startDatePicker"
+        android:onClick="showStartTimePickerDialog"
+
+        />
+
+<!--        android:layout_toRightOf="@+id/startDateText" -->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Start Time"
+        android:textStyle="bold"
+        android:textColor="#FFFF00"
+        android:background="#999999"
+        android:id="@+id/startTimeText"
+        android:layout_below="@id/startDatePicker"
+        />
+<!--
+        android:layout_alignTop="@+id/startTimePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+-->
+
+    <TimePickerDialog
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startTimePicker"
+        android:textStyle="bold"
+        android:textColor="#999999"
+        android:background="#FFFF00"
+        />
+<!--
+        android:layout_above="@+id/endDateText"
+-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Max Distance"
-        android:id="@+id/textView9"
-        android:layout_alignTop="@+id/distanceSetter"
+        android:text="End Date"
+        android:id="@+id/endDateText"
+        android:layout_below="@id/startTimePicker"
+        />
+<!--
+        android:layout_alignBaseline="@+id/endDatePicker"
+        android:layout_alignBottom="@+id/endDatePicker"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+-->
 
-    <Spinner
+    <DatePickerDialog
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/durationSetter"
+        android:id="@+id/endDatePicker"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView10"
-        android:layout_toEndOf="@+id/textView10" />
+        />
+<!--
+        android:layout_toRightOf="@+id/endDateText"
+-->
+<!--         android:layout_toEndOf="@+id/textView10" -->
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="End Time"
+        android:textStyle="bold"
+        android:textColor="#FFFF00"
+        android:background="#999999"
+        android:id="@+id/endTimeText"
+        android:layout_below="@id/endDatePicker"
+/>
+<!--
+        android:layout_alignTop="@+id/endTimePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+-->
+    <TimePickerDialog
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endTimePicker"
+        android:textStyle="bold"
+        android:textColor="#999999"
+        android:background="#FFFF00"
+
+/>
+    <!--
+        android:layout_above="@+id/flockCreationButton"
+-->
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Flock"
+        android:id="@+id/flockCreationButton"
+        android:layout_below="@id/endTimePicker"
+        />
+    <!--
+        android:layout_below="@+id/endTimePicker"
+        android:layout_centerHorizontal="true" />
+-->
+<!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,25 +225,9 @@
         android:layout_alignStart="@+id/viewCreationSheepButton"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name of Flock"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/flockNameTextBox"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_alignRight="@+id/addCreationSheepButton"
-        android:layout_alignEnd="@+id/addCreationSheepButton" />
+
+
 
     <Button
         android:layout_width="wrap_content"
@@ -121,13 +266,7 @@
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Flock"
-        android:id="@+id/flockCreationButton"
-        android:layout_below="@+id/textView11"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

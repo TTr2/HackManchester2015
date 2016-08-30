@@ -17,10 +17,9 @@ import java.net.URL;
 public class SheepTrackingEnabler extends AppCompatActivity {
 
     String response;
-
     boolean isEnabled;
-
     ToggleButton enabler;
+    final String serverURL = "http://chrisdromey.ddns.net/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +36,15 @@ public class SheepTrackingEnabler extends AppCompatActivity {
                     isEnabled = false;
 
                     //HTTPRequest to stop text messaging
-
-                    response = excutePost("http://46.101.60.51/", "?phoneNumber="+SheepOrShephard.getPhoneNumber()+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=false");
+                    response = executePost(serverURL + "/receiveSMS.php/", "?mobile="+SheepOrShephard.getPhoneNumber(App.getContext())+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=false"+"&keyword=SUSPEND");
 
                 }
 
                 else
                 {
                     isEnabled = true;
-
                     //HTTPRequest to start text messaging
-                    response = excutePost("http://46.101.60.51/", "?phoneNumber="+SheepOrShephard.getPhoneNumber()+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=true");
-
+                    response = executePost(serverURL + "/receiveSMS.php", "?mobile="+SheepOrShephard.getPhoneNumber(App.getContext())+"&latitude="+SheepOrShephard.getLocationCoordinates()[0]+"&longtitude="+SheepOrShephard.getLocationCoordinates()[1]+"&isTracked=true"+"&keyword=FLOCKME");
                 }
             }
         });
@@ -76,7 +72,7 @@ public class SheepTrackingEnabler extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static String excutePost(String targetURL, String urlParameters) {
+    private static String executePost(String targetURL, String urlParameters) {
         HttpURLConnection connection = null;
         try {
             //Create connection

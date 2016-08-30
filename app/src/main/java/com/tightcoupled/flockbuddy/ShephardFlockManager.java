@@ -82,7 +82,7 @@ public class ShephardFlockManager extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static String excutePost(String targetURL, String urlParameters) {
+    private static String executePost(String targetURL, String urlParameters) {
         HttpURLConnection connection = null;
         try {
             //Create connection

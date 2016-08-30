@@ -81,7 +81,8 @@ public class FlockManagement extends AppCompatActivity {
             }
         });
 
-        maxDistanceSpinner = (Spinner) findViewById(R.id.distanceSetter);
+        // TODO various stuff for new date adapters
+        maxDistanceSpinner = (Spinner) findViewById(R.id.radiusSpinner);
 
         //Spinner dynamicSpinner = (Spinner) findViewById(R.id.dynamic_spinner);
 
@@ -105,6 +106,7 @@ public class FlockManagement extends AppCompatActivity {
             }
         });
 
+/* TODO change to date pickers
         maxDurationSpinner = (Spinner) findViewById(R.id.durationSetter);
 
         String[] theitems = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
@@ -126,7 +128,7 @@ public class FlockManagement extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-
+*/
     }
 
     @Override

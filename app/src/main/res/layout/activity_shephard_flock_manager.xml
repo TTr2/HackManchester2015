@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/sheepshepherd"
+    android:background="@drawable/sheep"
     tools:context="com.tightcoupled.flockbuddy.ShephardFlockManager">
 
     <Button
@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Create Flock"
         android:id="@+id/createFlockButton"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+
         android:layout_marginTop="134dp"
         android:layout_alignLeft="@+id/manageFlockButton"
         android:layout_alignStart="@+id/manageFlockButton" />

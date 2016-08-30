@@ -126,7 +126,7 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
         return super.onOptionsItemSelected(item);
     }
 
-    private static String excutePost(String targetURL, String urlParameters) {
+    private static String executePost(String targetURL, String urlParameters) {
         HttpURLConnection connection = null;
         try {
             //Create connection
@@ -203,9 +203,9 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
         return coordinates;
     }
 
-    public static int getPhoneNumber()
+    public static int getPhoneNumber(Context c)
     {
-        TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tMgr = (TelephonyManager) c.getSystemService(Context.TELEPHONY_SERVICE);
         String mPhoneNumber = tMgr.getLine1Number();
         return Integer.parseInt(mPhoneNumber);
     }
@@ -214,9 +214,9 @@ public class SheepOrShephard extends AppCompatActivity implements LocationListen
     {
         double[] coordinates = getLocationCoordinates();
 
-        int phoneNumber = getPhoneNumber();
+        int phoneNumber = getPhoneNumber(App.getContext());
 
-        //Send HTTP Request here...
+        // TODO Send HTTP Request here...
 
     }
 

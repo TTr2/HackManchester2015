@@ -1,14 +1,20 @@
 package com.tightcoupled.flockbuddy;
 
+import java.util.Date;
+
 /**
+ * Model of flock record in DB.
  * Created by muditpandya on 25/10/15.
  */
 public class FlockObject {
 
+    String flockID;
     String FlockName;
+    String flockShepherdID;
+    Date flockStartDate, flockEnd;
     int maxDistance, maxDuration;
     int numberOfSheep;
-    String flockID;
+
 
 
     public void setFlockName(String name)
